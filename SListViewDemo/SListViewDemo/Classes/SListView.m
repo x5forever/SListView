@@ -34,7 +34,6 @@ static const CGFloat kSpace = 0.0f;
     struct {
         unsigned int numberOfColumns     : 1;
         unsigned int widthForColumn      : 1;
-//        unsigned int viewForColumn       : 1;
     }_dataSourceFlags;
     
 }
@@ -106,7 +105,7 @@ static const CGFloat kSpace = 0.0f;
     }
 
     if (!_visibleListCells) {
-        _visibleListCells = [NSMutableArray arrayWithCapacity:5];
+        _visibleListCells = [NSMutableArray arrayWithCapacity:ceilf(CGRectGetWidth(self.frame)/[_dataSource widthForColumnAtIndex:_specificIndex])+1];
     }
     
     
@@ -209,7 +208,7 @@ static const CGFloat kSpace = 0.0f;
     }
     NSMutableArray * cells = [_reusableListCells valueForKey:identifier];
     if (!cells) {
-        cells  = [[NSMutableArray alloc] initWithCapacity:5];
+        cells  = [[NSMutableArray alloc] initWithCapacity:ceilf(CGRectGetWidth(self.frame)/[_dataSource widthForColumnAtIndex:_specificIndex])+1];
         [_reusableListCells setValue:cells forKey:identifier];
     }
     [cells addObject:reuseView];
@@ -219,7 +218,7 @@ static const CGFloat kSpace = 0.0f;
 
 #pragma mark - ScrollView Delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    float decimal = scrollView.contentOffset.x / scrollView.frame.size.width;
+    float decimal = scrollView.contentOffset.x / [_dataSource widthForColumnAtIndex:_visibleRange.start];
     NSInteger index = [[_formatter stringFromNumber:[NSNumber numberWithFloat:decimal]] integerValue] ;
     if (scrollView.contentOffset.x > 0 && scrollView.contentOffset.x < scrollView.contentSize.width) {
         if (_delegateFlags.didScroll) {
