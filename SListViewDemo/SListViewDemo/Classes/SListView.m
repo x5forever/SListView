@@ -13,14 +13,12 @@
 
 static const CGFloat kSpace = 0.0f;
 @implementation UIScrollView (Rect)
-
 - (CGRect) visibleRect {
     CGRect rect;
     rect.origin = self.contentOffset;
     rect.size = self.bounds.size;
 	return rect;
 }
-
 @end
 
 @implementation SListView
