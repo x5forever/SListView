@@ -130,7 +130,7 @@ static const CGFloat kSpace = 0.0f;
 }
 
 - (void) reloadData {
-    
+    [self loadData];
 }
 
 - (SListViewCell *) requestCellWithIndex:(NSInteger) index direction:(SDirectionType) direction {

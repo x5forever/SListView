@@ -27,7 +27,7 @@
 }
 #pragma mark - SListViewDataSource
 - (CGFloat)widthForColumnAtIndex:(NSInteger)index {
-    return CGRectGetWidth(self.view.frame)/1;
+    return CGRectGetWidth(self.view.frame)/2;
 }
 
 - (NSInteger)numberOfColumnsInListView:(SListView *)listView {
@@ -57,8 +57,7 @@
         _listView = [[SListView alloc] initWithFrame:CGRectMake(0, 200, CGRectGetWidth(self.view.frame), 200)];
         _listView.dataSource = self;
         _listView.delegate = self;
-//        _listView.specificIndex = 2;
-        
+        _listView.specificIndex = 1;
     }
     return _listView;
 }
