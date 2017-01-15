@@ -24,10 +24,11 @@
     [super viewDidLoad];
     self.dataSource = @[randomColor,randomColor,randomColor,randomColor,randomColor];
     [self.view addSubview:self.listView];
+//    UITableView
 }
 #pragma mark - SListViewDataSource
 - (CGFloat)widthForColumnAtIndex:(NSInteger)index {
-    return CGRectGetWidth(self.view.frame)/2;
+    return CGRectGetWidth(self.view.frame)/2.4;
 }
 
 - (NSInteger)numberOfColumnsInListView:(SListView *)listView {

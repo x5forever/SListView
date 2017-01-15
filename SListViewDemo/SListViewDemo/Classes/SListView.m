@@ -11,7 +11,7 @@
 
 #import "SListView.h"
 
-static const CGFloat kSpace = 0.0f;
+static const CGFloat kSpace = 10.0f;
 @implementation UIScrollView (Rect)
 - (CGRect) visibleRect {
     CGRect rect;
@@ -24,6 +24,7 @@ static const CGFloat kSpace = 0.0f;
 @implementation SListView
 {
     CGFloat _preOffsetX;
+    NSInteger _visibleListCellNum; // 可见cell数
     NSNumberFormatter *_formatter;
     
     struct {
@@ -44,15 +45,18 @@ static const CGFloat kSpace = 0.0f;
 - (id)initWithFrame:(CGRect) frame {
     self = [super initWithFrame:frame];
     if (self) {
+        _specificIndex = 0;
+        _visibleListCellNum = 1;
         _height = CGRectGetHeight(frame);
         _formatter = [[NSNumberFormatter alloc] init];
         [_formatter setPositiveFormat:@"0"];
-        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(frame) + kSpace, CGRectGetHeight(frame))];
+        
+        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(frame)+kSpace, _height)];
         [_scrollView flashScrollIndicators];
         _scrollView.delegate = self;
         _scrollView.pagingEnabled = YES;
+        _scrollView.clipsToBounds = NO;
         [self addSubview:_scrollView];
-        _specificIndex = 0;
     }
     return self;
 }
@@ -85,8 +89,16 @@ static const CGFloat kSpace = 0.0f;
         if (_columns <= 0) {
             return;
         }
+        CGFloat cellWidth = [_dataSource widthForColumnAtIndex:_specificIndex];
+        if (cellWidth > 0) {
+            _visibleListCellNum = ceilf(CGRectGetWidth(self.frame)/cellWidth);
+        }
+        
+        //如果做成卡片样式，scrollView的originX居中显示
+        _scrollView.frame = CGRectMake(self.center.x-cellWidth/2., 0, cellWidth + kSpace, CGRectGetHeight(self.frame));
+        
         CGFloat left = 0;
-        NSInteger end = ceilf(CGRectGetWidth(self.frame)/[_dataSource widthForColumnAtIndex:_specificIndex]) - 1;
+        NSInteger end = _visibleListCellNum - 1;
         if (end < 0 ) end = 0;
         _visibleRange = SRangeMake(_specificIndex, _specificIndex + end);
         _columnRects = [NSMutableArray arrayWithCapacity:_columns];
@@ -105,7 +117,7 @@ static const CGFloat kSpace = 0.0f;
     }
 
     if (!_visibleListCells) {
-        _visibleListCells = [NSMutableArray arrayWithCapacity:ceilf(CGRectGetWidth(self.frame)/[_dataSource widthForColumnAtIndex:_specificIndex])+1];
+        _visibleListCells = [NSMutableArray arrayWithCapacity:(_visibleListCellNum+1)];
     }
     
     
@@ -208,7 +220,7 @@ static const CGFloat kSpace = 0.0f;
     }
     NSMutableArray * cells = [_reusableListCells valueForKey:identifier];
     if (!cells) {
-        cells  = [[NSMutableArray alloc] initWithCapacity:ceilf(CGRectGetWidth(self.frame)/[_dataSource widthForColumnAtIndex:_specificIndex])+1];
+        cells  = [[NSMutableArray alloc] initWithCapacity:_visibleListCellNum+1];
         [_reusableListCells setValue:cells forKey:identifier];
     }
     [cells addObject:reuseView];
@@ -238,5 +250,11 @@ static const CGFloat kSpace = 0.0f;
         [_delegate listViewDidEndDeceleratingAtIndex:_scrollView.contentOffset.x / _scrollView.frame.size.width];
     }
 }
-
+//重写hitTest方法，让超出scrollView外的拖拽事件也能响应
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
+{
+    CGPoint newP = [self convertPoint:point toView:self];
+    if ([self pointInside:newP withEvent:event]) { return self.scrollView; }
+    return [super hitTest:point withEvent:event];
+}
 @end

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SListViewCell : UIView
+@interface SListViewCell : UIButton
 @property (nonatomic, copy) NSString * identifier;
 - (id)initWithIdentifier:(NSString *) identifier;
 @end
