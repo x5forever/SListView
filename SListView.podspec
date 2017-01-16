@@ -4,7 +4,7 @@ Pod::Spec.new do |s|
   s.version          = '0.1.0'
   s.summary          = 'custom tableView of horizontal sliding'
   s.description      = <<-DESC
-                        可以水平滑动的tableView
+                        可以水平滑动的自定义tableView,后续有待继续优化支持“循环滑动”,“垂直滑动”以及“卡片样式”，
                        DESC
   s.homepage         = 'https://github.com/x5forever/SListView'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
