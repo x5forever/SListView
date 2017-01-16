@@ -22,19 +22,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.dataSource = @[randomColor,randomColor,randomColor,randomColor,randomColor];
+    self.dataSource = @[randomColor,randomColor,randomColor,randomColor,randomColor,randomColor];
     [self.view addSubview:self.listView];
-//    UITableView
-}
-#pragma mark - SListViewDataSource
-- (CGFloat)widthForColumnAtIndex:(NSInteger)index {
-    return CGRectGetWidth(self.view.frame)/2.4;
 }
 
+#pragma mark - SListViewDataSource
+- (CGFloat)widthForColumnAtIndex:(NSInteger)index {
+    return CGRectGetWidth(self.view.frame)/2.0;
+}
 - (NSInteger)numberOfColumnsInListView:(SListView *)listView {
     return self.dataSource.count;
 }
-
 - (SListViewCell *)listView:(SListView *)listView viewForColumnAtIndex:(NSInteger)index {
     static NSString *identifier = @"ListViewPageIdentifier";
     ListViewPage *cell = (ListViewPage *)[listView dequeueReusableCellWithIdentifier:identifier];
@@ -48,17 +46,19 @@
     cell.backgroundColor = _dataSource[index];
 }
 #pragma mark - SListViewDelegate
-- (void)listViewDidScroll:(NSInteger)index {
-    NSLog(@"%ld",index);
+- (void)listView:(SListView *)listView didSelectAtIndex:(NSInteger)index {
+    NSLog(@"didSelectAtIndex :%ld",index);
 }
-
+- (void)listView:(SListView *)listView didScroll:(NSInteger)index {
+    NSLog(@"didScroll :%ld",index);
+}
 
 - (SListView *)listView {
     if (!_listView) {
         _listView = [[SListView alloc] initWithFrame:CGRectMake(0, 200, CGRectGetWidth(self.view.frame), 200)];
         _listView.dataSource = self;
         _listView.delegate = self;
-        _listView.specificIndex = 1;
+        _listView.specificIndex = 2;
     }
     return _listView;
 }

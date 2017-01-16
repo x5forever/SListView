@@ -7,7 +7,6 @@
 //
 
 #import "SListViewCell.h"
-#import <QuartzCore/QuartzCore.h>
 
 @class SListView;
 /// 定义一种结构体，用来表示区间。表示一个 从 几到几 的概念
@@ -32,46 +31,30 @@ typedef enum _SDirection {
     SDirectionTypeRight
 } SDirectionType;
 
-@protocol SListViewDelegate <NSObject, UIScrollViewDelegate>
-@optional
-- (void)listViewDidScroll:(NSInteger)index;
-- (void)listViewDidEndDeceleratingAtIndex:(NSUInteger)index;
-@end
-
-@protocol SListViewDataSource <NSObject>
-
-@optional
-- (NSInteger) numberOfColumnsInListView:(SListView *) listView;
-- (CGFloat) widthForColumnAtIndex:(NSInteger) index;
-- (SListViewCell *) listView:(SListView *)listView viewForColumnAtIndex:(NSInteger) index;
-@end
-
 @interface UIScrollView (Rect)
 - (CGRect) visibleRect;
 @end
 
-@interface SListView : UIView <NSCoding, UIScrollViewDelegate> {
-    /// ListCell 个数
-    NSInteger _columns;
-    /// 每个SListViewCell 的高度
-    CGFloat _height;
-    /// 所有的SListViewCell 的frame
-    NSMutableArray * _columnRects;
-    /// 可见的column范围
-    SRange _visibleRange;
-    /// scrollView 的可见区域
-    CGRect _visibleRect;
-    /// 可见的SListViewCell;
-    NSMutableArray * _visibleListCells;
-    /// 可重用的ListCells {identifier:[cell1,cell2]}
-    NSMutableDictionary * _reusableListCells;
-}
-@property (nonatomic,assign) id<SListViewDelegate> delegate;
-@property (nonatomic,assign) id<SListViewDataSource> dataSource;
-@property (nonatomic, readonly) UIScrollView * scrollView;
-@property (nonatomic, assign) NSInteger specificIndex;
-@property (nonatomic, assign) BOOL showsHorizontalScrollIndicator;
+@protocol SListViewDelegate <NSObject>
+@optional
+- (void)listView:(SListView *)listView didScroll:(NSInteger)index;
+- (void)listView:(SListView *)listView didSelectAtIndex:(NSInteger)index;
+@end
+
+@protocol SListViewDataSource <NSObject>
+@optional
+- (NSInteger) numberOfColumnsInListView:(SListView *)listView;
+- (CGFloat) widthForColumnAtIndex:(NSInteger) index;
+- (SListViewCell *) listView:(SListView *)listView viewForColumnAtIndex:(NSInteger)index;
+@end
+
+@interface SListView : UIView <NSCoding, UIScrollViewDelegate>
+
+@property (nonatomic, assign) id<SListViewDelegate>   delegate;
+@property (nonatomic, assign) id<SListViewDataSource> dataSource;
+@property (nonatomic, assign) NSInteger               specificIndex;  // default is 0 , 指定当前的index
+@property (nonatomic, strong, readonly) UIScrollView* scrollView;
+
 - (id)dequeueReusableCellWithIdentifier:(NSString *)identifier;
 - (void) reloadData;
-
 @end
