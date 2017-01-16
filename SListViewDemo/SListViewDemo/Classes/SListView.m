@@ -163,6 +163,7 @@ static const CGFloat kSpace = 0.0f;
     cell.frame = frame;
     cell.tag = index;
     [_scrollView addSubview:cell];
+    [_scrollView sendSubviewToBack:cell];
     [cell addTarget:self action:@selector(didSelect:) forControlEvents:UIControlEventTouchUpInside];
     if (direction == SDirectionTypeLeft) {
         [_visibleListCells addObject:cell];
