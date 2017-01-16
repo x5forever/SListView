@@ -52,13 +52,12 @@
 - (void)listView:(SListView *)listView didScroll:(NSInteger)index {
     NSLog(@"didScroll :%ld",index);
 }
-
+#pragma mark - lazy init
 - (SListView *)listView {
     if (!_listView) {
         _listView = [[SListView alloc] initWithFrame:CGRectMake(0, 200, CGRectGetWidth(self.view.frame), 200)];
         _listView.dataSource = self;
         _listView.delegate = self;
-        _listView.specificIndex = 2;
     }
     return _listView;
 }
