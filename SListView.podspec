@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
                        DESC
   s.homepage         = 'https://github.com/x5forever/SListView'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'x5' => '644035652@qq.com' }
+  s.author           = { 'x5' => 'x5forever@163.com' }
   s.source           = { :git => 'https://github.com/x5forever/SListView.git', :tag => 'V'+s.version.to_s }
 
   s.platform     = :ios, "7.0"
