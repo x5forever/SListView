@@ -50,9 +50,9 @@ typedef enum _SDirection {
 
 @interface SListView : UIView <NSCoding, UIScrollViewDelegate>
 
-@property (nonatomic, assign) id<SListViewDelegate>   delegate;
-@property (nonatomic, assign) id<SListViewDataSource> dataSource;
-@property (nonatomic, assign) NSInteger               specificIndex;  // default is 0 , 指定当前的index
+@property (nonatomic, weak) id <SListViewDelegate>    delegate;
+@property (nonatomic, weak) id <SListViewDataSource>  dataSource;
+@property (nonatomic, assign) NSInteger               specifiedIndex;  //default is 0, 指定当前的index
 @property (nonatomic, strong, readonly) UIScrollView* scrollView;
 
 - (id)dequeueReusableCellWithIdentifier:(NSString *)identifier;
