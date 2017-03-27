@@ -8,7 +8,7 @@
 
 # Add to the Podfile
 ```objc 
-pod 'SListView','~>0.1.1'
+pod 'SListView','~>0.2.0'
 ```
 # How to use SListView
 ```objc 
