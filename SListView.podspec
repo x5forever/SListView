@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SListView'
-  s.version          = '0.1.1'
+  s.version          = '0.2.0'
   s.summary          = 'custom tableView of horizontal sliding'
   s.description      = <<-DESC
                         可以水平滑动的自定义tableView,后续有待继续优化支持“循环滑动”,“垂直滑动”以及“卡片样式”，

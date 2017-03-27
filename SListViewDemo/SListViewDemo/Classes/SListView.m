@@ -87,9 +87,8 @@ static const CGFloat kSpace = 0.0f;
 - (void)setSpecifiedIndex:(NSInteger)specifiedIndex
 {
     _specifiedIndex = specifiedIndex;
-    if (_dataSource) {
-//        CGRect frame = CGRectFromString([_columnRects objectAtIndex:specifiedIndex]);
-//        _scrollView.contentOffset = CGPointMake(CGRectGetMinX(frame), 0);
+    if (_dataSource && _fullScreenWidth) {
+        [self loadData];
     }
 }
 - (void) reloadData {
@@ -102,7 +101,6 @@ static const CGFloat kSpace = 0.0f;
         _columns = [_dataSource numberOfColumnsInListView:self];
         if (_columns <= 0) return;
 
-        _visibleRange = SRangeMake(0, 0);
         _columnRects = [NSMutableArray arrayWithCapacity:_columns];
         
         CGFloat left = 0;
@@ -119,7 +117,7 @@ static const CGFloat kSpace = 0.0f;
             left += width + kSpace;
         }
         _scrollView.contentSize = CGSizeMake(left, _height);
-        _scrollView.contentOffset = CGPointMake(0, 0);
+        _scrollView.contentOffset = CGPointMake(0 + CGRectGetWidth(_scrollView.frame)*_specifiedIndex*_fullScreenWidth , 0);
     }
     
     if (!_visibleListCells) {
@@ -130,7 +128,7 @@ static const CGFloat kSpace = 0.0f;
             [self inqueueReusableWithView:cell];
         }
     }
-
+    _visibleRange = SRangeMake(0 + _specifiedIndex*_fullScreenWidth, 0 + _specifiedIndex*_fullScreenWidth);
     CGRect rect = [_scrollView visibleRect];
     NSUInteger index = _visibleRange.start;
     CGFloat left = 0;
@@ -260,7 +258,6 @@ static const CGFloat kSpace = 0.0f;
                 [_delegate listView:self didScrollToColumn:SRangeMake(index, index)];
             }
         }else {
-            
             [_delegate listView:self didScrollToColumn:_visibleRange];
         }
     }

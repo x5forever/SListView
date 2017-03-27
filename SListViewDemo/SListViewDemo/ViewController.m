@@ -22,7 +22,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.dataSource = @[randomColor,randomColor,randomColor,randomColor];
+    self.view.backgroundColor = [UIColor lightGrayColor];
+    self.dataSource = @[randomColor,randomColor,randomColor,randomColor,randomColor];
     [self.view addSubview:self.listView];
 }
 - (IBAction)reload:(id)sender {
@@ -32,8 +33,8 @@
 
 #pragma mark - SListViewDataSource
 - (CGFloat)widthForColumnAtIndex:(NSInteger)index {
-//    return CGRectGetWidth(self.view.frame);
-    return index % 2? 70:90;
+//    return CGRectGetWidth(self.view.frame);  // _fullScreenWidth = YES 
+    return index % 2? 70:90;                 // _fullScreenWidth = NO
 }
 - (NSInteger)numberOfColumnsInListView:(SListView *)listView {
     return self.dataSource.count;
@@ -55,7 +56,7 @@
     NSLog(@"didSelectColumnAtIndex :%ld",index);
 }
 - (void)listView:(SListView *)listView didScrollToColumn:(SRange)range {
-    NSLog(@"didScrollToColumn start:%ld  end:%ld",range.start,range.end);
+//    NSLog(@"didScrollToColumn start:%ld  end:%ld",range.start,range.end);
 }
 #pragma mark - lazy init
 - (SListView *)listView {
