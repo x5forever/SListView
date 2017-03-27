@@ -25,7 +25,7 @@ static const CGFloat kSpace = 0.0f;
 @interface SListView () {
     // ListCell 个数
     NSInteger _columns;
-    /// 每个SListViewCell 的高度
+    // 每个SListViewCell 的高度
     CGFloat _height;
     // 所有的SListViewCell 的frame
     NSMutableArray * _columnRects;
@@ -37,8 +37,6 @@ static const CGFloat kSpace = 0.0f;
     NSMutableArray * _visibleListCells;
     // 可重用的ListCells {identifier:[cell1,cell2]}
     NSMutableDictionary * _reusableListCells;
-    // scrollView 被拖拽
-    BOOL _scrollViewDragging;
 }
 @end
 
@@ -63,9 +61,7 @@ static const CGFloat kSpace = 0.0f;
 - (id)initWithFrame:(CGRect) frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _specifiedIndex = 0;
         _height = CGRectGetHeight(frame);
-        
         _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(frame)+kSpace, _height)];
         _scrollView.delegate = self;
         [self addSubview:_scrollView];
@@ -75,8 +71,8 @@ static const CGFloat kSpace = 0.0f;
 - (void)setDelegate:(id<SListViewDelegate>)delegate
 {
     _delegate = delegate;
-    _delegateFlags.didScroll = [delegate respondsToSelector:@selector(listView:didScroll:)];
-    _delegateFlags.didSelect = [delegate respondsToSelector:@selector(listView:didSelectAtIndex:)];
+    _delegateFlags.didScroll = [delegate respondsToSelector:@selector(listView:didScrollToColumn:)];
+    _delegateFlags.didSelect = [delegate respondsToSelector:@selector(listView:didSelectColumnAtIndex:)];
 }
 - (void) setDataSource:(id<SListViewDataSource>)dataSource
 {
@@ -89,65 +85,48 @@ static const CGFloat kSpace = 0.0f;
 - (void)setSpecifiedIndex:(NSInteger)specifiedIndex
 {
     _specifiedIndex = specifiedIndex;
-    if (_dataSource) {
-        [self loadData];
-    }
+//    if (_dataSource) {
+//        [self loadData];
+//    }
 }
 - (void) reloadData {
     [self loadData];
 }
 - (void) loadData
 {
-    NSInteger visibleListCellNum = 0;
     if (_dataSourceFlags.numberOfColumns) {
         _columns = [_dataSource numberOfColumnsInListView:self];
         if (_columns <= 0) return;
-        
-        CGFloat cellWidth = [_dataSource widthForColumnAtIndex:_specifiedIndex];
-        if (cellWidth > 0) {
-            visibleListCellNum = ceilf(CGRectGetWidth(self.frame)/cellWidth); //向上取整，恒大于1的整数
-        }
-        CGFloat left = 0;
-        NSInteger end = visibleListCellNum - 1;
-        if (end < 0 ) end = 0;
-        if (_specifiedIndex != 0) { // 当_specifiedIndex不为0时，需要判断处理
-            if (_columns <= visibleListCellNum) _specifiedIndex = 0;
-            else _specifiedIndex = _columns - _specifiedIndex < visibleListCellNum ? _columns - visibleListCellNum : _specifiedIndex;
-        }
-        _visibleRange = SRangeMake(_specifiedIndex, end);
+
+        _visibleRange = SRangeMake(0, 0);
         _columnRects = [NSMutableArray arrayWithCapacity:_columns];
+        
+        CGFloat left = 0;
         for (int index = 0; index < _columns; index ++) {
             CGFloat width = _height;
             if (_dataSourceFlags.widthForColumn) {
                 width = [_dataSource widthForColumnAtIndex:index];
             }
-            
             CGRect rect = CGRectMake(left, 0, width, _height);
-            
             [_columnRects addObject:NSStringFromCGRect(rect)];
             left += width + kSpace;
         }
-        _scrollViewDragging = NO; // 避免非手动拖拽调用scrollViewDidScroll:
         _scrollView.contentSize = CGSizeMake(left, _height);
     }
     
     if (!_visibleListCells) {
-        NSInteger cellCapacity = _columns > visibleListCellNum ? visibleListCellNum :_columns;
-        _visibleListCells = [NSMutableArray arrayWithCapacity:cellCapacity];
+        _visibleListCells = [NSMutableArray arrayWithCapacity:2];
     }else{
         while (_visibleListCells.count > 0) {
             SListViewCell *cell = _visibleListCells[0];
             [self inqueueReusableWithView:cell];
         }
     }
-    
-    CGRect specifiedRect = CGRectFromString([_columnRects objectAtIndex:_specifiedIndex]);
-    _scrollView.contentOffset = CGPointMake(CGRectGetMinX(specifiedRect), 0);
-    _scrollViewDragging = YES; // 开启手动拖拽时调用scrollViewDidScroll:
+
     CGRect rect = [_scrollView visibleRect];
     NSUInteger index = _visibleRange.start;
     CGFloat left = 0;
-    while (left < rect.size.width && index <= _columns -1) {
+    while (left < rect.size.width && index < _columns) {
         CGRect frame = CGRectFromString([_columnRects objectAtIndex:index]);
         [self requestCellWithIndex:index direction:SDirectionTypeLeft];
         left += frame.size.width;
@@ -174,7 +153,7 @@ static const CGFloat kSpace = 0.0f;
     }else if(direction == SDirectionTypeRight) {
         [_visibleListCells insertObject:cell atIndex:0];
     }
-//    NSLog(@"_visibleListCells count >> %ld",_visibleListCells.count);
+    NSLog(@"_visibleListCells count >> %ld",_visibleListCells.count);
     return cell;
 }
 - (void) reLayoutSubViewsWithOffset:(CGFloat) offset {
@@ -220,7 +199,7 @@ static const CGFloat kSpace = 0.0f;
     }
 }
 
-/// Cell 的复用
+// Cell 的复用
 - (id)dequeueReusableCellWithIdentifier:(NSString *)identifier {
     SListViewCell * cell = nil;
     NSMutableArray * reuseCells = [_reusableListCells objectForKey:identifier];
@@ -234,31 +213,37 @@ static const CGFloat kSpace = 0.0f;
 - (void)inqueueReusableWithView:(SListViewCell *) reuseView {
     NSString * identifier = reuseView.identifier;
     if (!_reusableListCells) {
-        _reusableListCells = [NSMutableDictionary dictionaryWithCapacity:5];
+        _reusableListCells = [NSMutableDictionary dictionaryWithCapacity:2];
     }
     NSMutableArray * cells = [_reusableListCells valueForKey:identifier];
     if (!cells) {
-        cells  = [[NSMutableArray alloc] initWithCapacity:_visibleListCells.count];
+        cells  = [[NSMutableArray alloc] initWithCapacity:2];
         [_reusableListCells setValue:cells forKey:identifier];
     }
     [cells addObject:reuseView];
     [_visibleListCells removeObject:reuseView];
     [reuseView removeFromSuperview];
 }
+- (SListViewCell *)cellForColumnAtIndex:(NSInteger)index {
+    SListViewCell *cell = nil;
+    if (InRange(_visibleRange, index)) {
+        cell = _visibleListCells[index - _visibleRange.start];
+    }
+    return cell;
+}
 #pragma mark - call SListViewDelegate
 - (void)didSelect:(SListViewCell *)cell {
     if (_delegateFlags.didSelect) {
-        [_delegate listView:self didSelectAtIndex:cell.tag];
+        [_delegate listView:self didSelectColumnAtIndex:cell.tag];
     }
 }
 // ScrollView Delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (!_scrollViewDragging) return;
     float decimal = scrollView.contentOffset.x / [_dataSource widthForColumnAtIndex:_visibleRange.start];
     NSInteger index = roundf(decimal);
     if (scrollView.contentOffset.x > 0 && scrollView.contentOffset.x < scrollView.contentSize.width && index < _columns) {
         if (_delegateFlags.didScroll) {
-            [_delegate listView:self didScroll:index];
+            [_delegate listView:self didScrollToColumn:index];
         }
     }
     CGRect tempRect = [scrollView visibleRect];

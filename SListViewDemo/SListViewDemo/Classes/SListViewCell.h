@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface SListViewCell : UIButton
-@property (nonatomic, copy) NSString * identifier;
+@property (nonatomic, readonly, copy) NSString * identifier;
 - (id)initWithIdentifier:(NSString *) identifier;
 @end

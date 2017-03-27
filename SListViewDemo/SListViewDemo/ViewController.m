@@ -26,13 +26,13 @@
     [self.view addSubview:self.listView];
 }
 - (IBAction)reload:(id)sender {
-    self.dataSource = @[randomColor,randomColor,randomColor,randomColor,randomColor,randomColor];
+    self.dataSource = @[randomColor,randomColor,randomColor,randomColor,randomColor,randomColor,randomColor,randomColor];
     [self.listView reloadData];
 }
 
 #pragma mark - SListViewDataSource
 - (CGFloat)widthForColumnAtIndex:(NSInteger)index {
-    return CGRectGetWidth(self.view.frame)/4.0;
+    return index % 2 ? 60 : 80;
 }
 - (NSInteger)numberOfColumnsInListView:(SListView *)listView {
     return self.dataSource.count;
@@ -50,11 +50,11 @@
     cell.backgroundColor = _dataSource[index];
 }
 #pragma mark - SListViewDelegate
-- (void)listView:(SListView *)listView didSelectAtIndex:(NSInteger)index {
-    NSLog(@"didSelectAtIndex :%ld",index);
+- (void)listView:(SListView *)listView didSelectColumnAtIndex:(NSInteger)index {
+    NSLog(@"didSelectColumnAtIndex :%ld",index);
 }
-- (void)listView:(SListView *)listView didScroll:(NSInteger)index {
-//    NSLog(@"didScroll :%ld",index);
+- (void)listView:(SListView *)listView didScrollToColumn:(NSInteger)index {
+    NSLog(@"didScrollToColumn :%ld",index);
 }
 #pragma mark - lazy init
 - (SListView *)listView {

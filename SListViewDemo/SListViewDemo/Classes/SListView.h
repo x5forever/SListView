@@ -9,12 +9,13 @@
 #import "SListViewCell.h"
 
 @class SListView;
-/// 定义一种结构体，用来表示区间。表示一个 从 几到几 的概念
+// 定义一种结构体，用来表示区间。表示一个 从 几到几 的概念
 typedef struct _SRange{
     NSInteger start;
     NSInteger end;
 } SRange;
 
+// 创建结构体 SRange，结构体中保存 start，end
 NS_INLINE SRange SRangeMake(NSInteger start, NSInteger end) {
     SRange range;
     range.start = start;
@@ -37,15 +38,15 @@ typedef enum _SDirection {
 
 @protocol SListViewDelegate <NSObject>
 @optional
-- (void)listView:(SListView *)listView didScroll:(NSInteger)index;
-- (void)listView:(SListView *)listView didSelectAtIndex:(NSInteger)index;
+- (void)listView:(SListView *)listView didScrollToColumn:(NSInteger)index;
+- (void)listView:(SListView *)listView didSelectColumnAtIndex:(NSInteger)index;
 @end
 
 @protocol SListViewDataSource <NSObject>
 @optional
-- (NSInteger) numberOfColumnsInListView:(SListView *)listView;
-- (CGFloat) widthForColumnAtIndex:(NSInteger) index;
-- (SListViewCell *) listView:(SListView *)listView viewForColumnAtIndex:(NSInteger)index;
+- (NSInteger)numberOfColumnsInListView:(SListView *)listView;
+- (CGFloat)widthForColumnAtIndex:(NSInteger) index;
+- (SListViewCell *)listView:(SListView *)listView viewForColumnAtIndex:(NSInteger)index;
 @end
 
 @interface SListView : UIView <NSCoding, UIScrollViewDelegate>
@@ -56,5 +57,6 @@ typedef enum _SDirection {
 @property (nonatomic, strong, readonly) UIScrollView* scrollView;
 
 - (id)dequeueReusableCellWithIdentifier:(NSString *)identifier;
-- (void) reloadData;
+- (SListViewCell *)cellForColumnAtIndex:(NSInteger)index; // returns nil if cell is not visible or index is out of range
+- (void)reloadData;
 @end
