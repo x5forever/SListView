@@ -38,7 +38,7 @@ typedef enum _SDirection {
 
 @protocol SListViewDelegate <NSObject>
 @optional
-- (void)listView:(SListView *)listView didScrollToColumn:(NSInteger)index;
+- (void)listView:(SListView *)listView didScrollToColumn:(SRange)range;
 - (void)listView:(SListView *)listView didSelectColumnAtIndex:(NSInteger)index;
 @end
 

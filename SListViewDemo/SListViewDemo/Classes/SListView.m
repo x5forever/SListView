@@ -37,6 +37,8 @@ static const CGFloat kSpace = 0.0f;
     NSMutableArray * _visibleListCells;
     // 可重用的ListCells {identifier:[cell1,cell2]}
     NSMutableDictionary * _reusableListCells;
+    // 所以子视图cell 的 width 恒等于 _scrollView 的 width
+    BOOL _fullScreenWidth;
 }
 @end
 
@@ -85,15 +87,17 @@ static const CGFloat kSpace = 0.0f;
 - (void)setSpecifiedIndex:(NSInteger)specifiedIndex
 {
     _specifiedIndex = specifiedIndex;
-//    if (_dataSource) {
-//        [self loadData];
-//    }
+    if (_dataSource) {
+//        CGRect frame = CGRectFromString([_columnRects objectAtIndex:specifiedIndex]);
+//        _scrollView.contentOffset = CGPointMake(CGRectGetMinX(frame), 0);
+    }
 }
 - (void) reloadData {
     [self loadData];
 }
 - (void) loadData
 {
+    _fullScreenWidth = YES;
     if (_dataSourceFlags.numberOfColumns) {
         _columns = [_dataSource numberOfColumnsInListView:self];
         if (_columns <= 0) return;
@@ -107,11 +111,15 @@ static const CGFloat kSpace = 0.0f;
             if (_dataSourceFlags.widthForColumn) {
                 width = [_dataSource widthForColumnAtIndex:index];
             }
+            if (_fullScreenWidth) { // 以下判断 cell 是否为全屏显示
+                _fullScreenWidth = CGRectGetWidth(_scrollView.frame) == width;
+            }
             CGRect rect = CGRectMake(left, 0, width, _height);
             [_columnRects addObject:NSStringFromCGRect(rect)];
             left += width + kSpace;
         }
         _scrollView.contentSize = CGSizeMake(left, _height);
+        _scrollView.contentOffset = CGPointMake(0, 0);
     }
     
     if (!_visibleListCells) {
@@ -153,7 +161,7 @@ static const CGFloat kSpace = 0.0f;
     }else if(direction == SDirectionTypeRight) {
         [_visibleListCells insertObject:cell atIndex:0];
     }
-    NSLog(@"_visibleListCells count >> %ld",_visibleListCells.count);
+//    NSLog(@"_visibleListCells count >> %ld",_visibleListCells.count);
     return cell;
 }
 - (void) reLayoutSubViewsWithOffset:(CGFloat) offset {
@@ -239,16 +247,22 @@ static const CGFloat kSpace = 0.0f;
 }
 // ScrollView Delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    float decimal = scrollView.contentOffset.x / [_dataSource widthForColumnAtIndex:_visibleRange.start];
-    NSInteger index = roundf(decimal);
-    if (scrollView.contentOffset.x > 0 && scrollView.contentOffset.x < scrollView.contentSize.width && index < _columns) {
-        if (_delegateFlags.didScroll) {
-            [_delegate listView:self didScrollToColumn:index];
-        }
-    }
     CGRect tempRect = [scrollView visibleRect];
     CGFloat offsetX = tempRect.origin.x - _visibleRect.origin.x;
     _visibleRect = tempRect;
     [self reLayoutSubViewsWithOffset:offsetX];
+    
+    if (_delegateFlags.didScroll) {
+        if (_fullScreenWidth) { // 当所以cell宽度恒等于_scrollView宽度时，显示出_scrollView 1/2 以上宽度即为已显示
+            float decimal = scrollView.contentOffset.x / CGRectGetWidth(_scrollView.frame);
+            NSInteger index = roundf(decimal); // 四舍五入
+            if (scrollView.contentOffset.x >= 0 && scrollView.contentOffset.x <= scrollView.contentSize.width && index < _columns) {
+                [_delegate listView:self didScrollToColumn:SRangeMake(index, index)];
+            }
+        }else {
+            
+            [_delegate listView:self didScrollToColumn:_visibleRange];
+        }
+    }
 }
 @end

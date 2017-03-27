@@ -32,7 +32,7 @@
 
 #pragma mark - SListViewDataSource
 - (CGFloat)widthForColumnAtIndex:(NSInteger)index {
-    return index % 2 ? 60 : 80;
+    return CGRectGetWidth(self.view.frame);
 }
 - (NSInteger)numberOfColumnsInListView:(SListView *)listView {
     return self.dataSource.count;
@@ -53,8 +53,8 @@
 - (void)listView:(SListView *)listView didSelectColumnAtIndex:(NSInteger)index {
     NSLog(@"didSelectColumnAtIndex :%ld",index);
 }
-- (void)listView:(SListView *)listView didScrollToColumn:(NSInteger)index {
-    NSLog(@"didScrollToColumn :%ld",index);
+- (void)listView:(SListView *)listView didScrollToColumn:(SRange)range {
+    NSLog(@"didScrollToColumn start:%ld  end:%ld",range.start,range.end);
 }
 #pragma mark - lazy init
 - (SListView *)listView {
@@ -62,6 +62,7 @@
         _listView = [[SListView alloc] initWithFrame:CGRectMake(0, 200, CGRectGetWidth(self.view.frame), 200)];
         _listView.dataSource = self;
         _listView.delegate = self;
+        _listView.specifiedIndex = 2;
     }
     return _listView;
 }
