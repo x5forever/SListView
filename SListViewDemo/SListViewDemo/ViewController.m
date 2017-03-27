@@ -32,7 +32,8 @@
 
 #pragma mark - SListViewDataSource
 - (CGFloat)widthForColumnAtIndex:(NSInteger)index {
-    return CGRectGetWidth(self.view.frame);
+//    return CGRectGetWidth(self.view.frame);
+    return index % 2? 70:90;
 }
 - (NSInteger)numberOfColumnsInListView:(SListView *)listView {
     return self.dataSource.count;
