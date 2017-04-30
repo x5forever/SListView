@@ -36,7 +36,7 @@ typedef enum _SDirection {
 - (CGRect) visibleRect;
 @end
 
-@protocol SListViewDelegate <NSObject>
+@protocol SListViewDelegate <NSObject,UIScrollViewDelegate>
 @optional
 - (void)listView:(SListView *)listView didScrollToColumn:(SRange)range;
 - (void)listView:(SListView *)listView didSelectColumnAtIndex:(NSInteger)index;
@@ -54,7 +54,7 @@ typedef enum _SDirection {
 @property (nonatomic, weak) id <SListViewDelegate>    delegate;
 @property (nonatomic, weak) id <SListViewDataSource>  dataSource;
 @property (nonatomic, assign) NSInteger               specifiedIndex;  //default is 0, 指定当前的index. 注意：当且仅当 _fullScreenWidth == YES 时有效
-@property (nonatomic, strong, readonly) UIScrollView* scrollView;
+@property (nonatomic, strong, readonly) UIScrollView *scrollView;
 
 - (id)dequeueReusableCellWithIdentifier:(NSString *)identifier;
 - (SListViewCell *)cellForColumnAtIndex:(NSInteger)index; // returns nil if cell is not visible or index is out of range

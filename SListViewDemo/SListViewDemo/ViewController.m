@@ -8,7 +8,6 @@
 
 #import "ViewController.h"
 #import "SListView.h"
-#import "ListViewPage.h"
 
 #define random(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
 #define randomColor random(arc4random_uniform(256), arc4random_uniform(256), arc4random_uniform(256))
@@ -22,7 +21,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor lightGrayColor];
     self.dataSource = @[randomColor,randomColor,randomColor,randomColor,randomColor];
     [self.view addSubview:self.listView];
 }
@@ -41,9 +39,9 @@
 }
 - (SListViewCell *)listView:(SListView *)listView viewForColumnAtIndex:(NSInteger)index {
     static NSString *identifier = @"ListViewPageIdentifier";
-    ListViewPage *cell = (ListViewPage *)[listView dequeueReusableCellWithIdentifier:identifier];
+    SListViewCell *cell = [listView dequeueReusableCellWithIdentifier:identifier];
     if (cell == nil) {
-        cell = [[ListViewPage alloc] initWithIdentifier:identifier];
+        cell = [[SListViewCell alloc] initWithIdentifier:identifier];
     }
     [self configureCell:cell atIndex:index];
     return cell;
@@ -61,10 +59,9 @@
 #pragma mark - lazy init
 - (SListView *)listView {
     if (!_listView) {
-        _listView = [[SListView alloc] initWithFrame:CGRectMake(0, 200, CGRectGetWidth(self.view.frame), 200)];
+        _listView = [[SListView alloc] initWithFrame:CGRectMake(0, 150, CGRectGetWidth(self.view.frame), 200)];
         _listView.dataSource = self;
         _listView.delegate = self;
-        _listView.specifiedIndex = 2;
     }
     return _listView;
 }
