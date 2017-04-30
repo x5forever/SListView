@@ -38,7 +38,7 @@
     return self.dataSource.count;
 }
 - (SListViewCell *)listView:(SListView *)listView viewForColumnAtIndex:(NSInteger)index {
-    static NSString *identifier = @"ListViewPageIdentifier";
+    static NSString *identifier = @"ListViewCellIdentifier";
     SListViewCell *cell = [listView dequeueReusableCellWithIdentifier:identifier];
     if (cell == nil) {
         cell = [[SListViewCell alloc] initWithIdentifier:identifier];
