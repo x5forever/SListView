@@ -27,11 +27,10 @@
     [self.view addSubview:self.loopView];
     _showLabel.text = @"0";
 }
-- (NSInteger)numberOfColumnsInLoopView:(SLoopView *)loopView
-{
+#pragma mark - SLoopViewDataSource
+- (NSInteger)numberOfColumnsInLoopView:(SLoopView *)loopView {
     return self.dataSource.count;
 }
-#pragma mark - SLoopViewDataSource
 - (SListViewCell *)loopView:(SLoopView *)loopView viewForColumnAtIndex:(NSInteger)index
 {
     static NSString *identifier = @"LoopViewCellIdentifier";
@@ -58,7 +57,7 @@
 - (SLoopView *)loopView
 {
     if (!_loopView) {
-        _loopView = [[SLoopView alloc] initWithFrame:CGRectMake(0, 200, CGRectGetWidth(self.view.frame), 200)];
+        _loopView = [[SLoopView alloc] initWithFrame:CGRectMake(0, 200, CGRectGetWidth(self.view.frame), 200) timeInterval:4];
         _loopView.dataSource = self;
         _loopView.delegate = self;
     }

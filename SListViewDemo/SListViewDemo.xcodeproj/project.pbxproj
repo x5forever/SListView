@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		541CA3331EB6CA6B00E7D3C1 /* SWeakTimerObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 541CA3321EB6CA6B00E7D3C1 /* SWeakTimerObject.m */; };
 		549DF30A1EB6126F009A6793 /* ViewController2.m in Sources */ = {isa = PBXBuildFile; fileRef = 549DF3091EB6126F009A6793 /* ViewController2.m */; };
 		549DF3161EB61B36009A6793 /* SLoopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 549DF3151EB61B36009A6793 /* SLoopView.m */; };
 		54CC231F1E27628D00D685C2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CC231E1E27628D00D685C2 /* main.m */; };
@@ -39,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		541CA3311EB6CA6B00E7D3C1 /* SWeakTimerObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWeakTimerObject.h; sourceTree = "<group>"; };
+		541CA3321EB6CA6B00E7D3C1 /* SWeakTimerObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWeakTimerObject.m; sourceTree = "<group>"; };
 		549DF3081EB6126F009A6793 /* ViewController2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController2.h; sourceTree = "<group>"; };
 		549DF3091EB6126F009A6793 /* ViewController2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController2.m; sourceTree = "<group>"; };
 		549DF3141EB61B36009A6793 /* SLoopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLoopView.h; sourceTree = "<group>"; };
@@ -164,6 +167,8 @@
 				54CC23541E27655500D685C2 /* SListViewCell.m */,
 				549DF3141EB61B36009A6793 /* SLoopView.h */,
 				549DF3151EB61B36009A6793 /* SLoopView.m */,
+				541CA3311EB6CA6B00E7D3C1 /* SWeakTimerObject.h */,
+				541CA3321EB6CA6B00E7D3C1 /* SWeakTimerObject.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -304,6 +309,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				541CA3331EB6CA6B00E7D3C1 /* SWeakTimerObject.m in Sources */,
 				549DF30A1EB6126F009A6793 /* ViewController2.m in Sources */,
 				54CC23551E27655500D685C2 /* SListView.m in Sources */,
 				54CC23251E27628D00D685C2 /* ViewController.m in Sources */,
