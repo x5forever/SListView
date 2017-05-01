@@ -15,7 +15,6 @@
 @interface ViewController2 ()<SLoopViewDelegate,SLoopViewDataSource>
 @property (nonatomic, strong) SLoopView *loopView;
 @property (nonatomic, strong) NSArray *dataSource;
-
 @property (strong, nonatomic) IBOutlet UILabel *showLabel;
 @end
 

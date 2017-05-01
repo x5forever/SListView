@@ -264,15 +264,15 @@ static const CGFloat kSpace = 0.0f;
 }
 - (BOOL)respondsToSelector:(SEL)aSelector {
     BOOL hasResponds = [super respondsToSelector:aSelector];
-    if(hasResponds == NO) hasResponds = [self.delegate respondsToSelector:aSelector];
+    if(hasResponds == NO) hasResponds = [_delegate respondsToSelector:aSelector];
     return hasResponds;
 }
 - (NSMethodSignature*)methodSignatureForSelector:(SEL)selector {
     NSMethodSignature* methodSign = [super methodSignatureForSelector:selector];
-    if(methodSign == nil) methodSign = [(id)self.delegate methodSignatureForSelector:selector];
+    if(methodSign == nil) methodSign = [(id)_delegate methodSignatureForSelector:selector];
     return methodSign;
 }
 - (void)forwardInvocation:(NSInvocation*)invocation {
-    [invocation invokeWithTarget:self.delegate];
+    [invocation invokeWithTarget:_delegate];
 }
 @end
