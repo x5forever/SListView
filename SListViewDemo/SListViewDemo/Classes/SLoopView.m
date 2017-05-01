@@ -27,7 +27,7 @@
 - (id)initWithFrame:(CGRect)frame timeInterval:(NSTimeInterval)ti
 {
     if (self = [self initWithFrame:frame]) {
-        if (ti != 0) {
+        if (ti > 0) {
             _timeInterval = ti;
             [self addTimer];
         }
@@ -99,7 +99,7 @@
     }else if (page == _realCount * 3 - 1){
         _listView.specifiedIndex = _realCount - 1;
     }
-    if (_timeInterval) [self addTimer];
+    if (_timeInterval > 0) [self addTimer];
 }
 // 手指开始拖动时调用
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
