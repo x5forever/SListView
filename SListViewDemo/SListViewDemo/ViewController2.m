@@ -24,7 +24,6 @@
     [super viewDidLoad];
     self.dataSource = @[randomColor,randomColor,randomColor];
     [self.view addSubview:self.loopView];
-    _showLabel.text = @"0";
 }
 - (IBAction)reload:(id)sender {
     self.dataSource = @[randomColor,randomColor];
@@ -61,8 +60,8 @@
 {
     if (!_loopView) {
         _loopView = [[SLoopView alloc] initWithFrame:CGRectMake(0, 150, CGRectGetWidth(self.view.frame), 200) loopInterval:4];
-        _loopView.dataSource = self;
         _loopView.delegate = self;
+        _loopView.dataSource = self;
     }
     return _loopView;
 }

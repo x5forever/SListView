@@ -10,6 +10,7 @@
 #import "SListView.h"
 #import "SWeakTimerObject.h"
 
+static const NSInteger kMultipleNum = 10; //(翻倍基数，必须 >= 2 )
 @interface SLoopView ()<SListViewDataSource, SListViewDelegate>
 {
     struct {
@@ -71,7 +72,7 @@
       并再间接调用 _listView 的 reloadData 方法
     */
     _realCount = [_dataSource numberOfColumnsInLoopView:self];
-    if (_realCount > 1) _listView.specifiedIndex = _realCount;
+    if (_realCount > 1) _listView.specifiedIndex = _realCount * floor(kMultipleNum/2);
     else _listView.specifiedIndex = 0;
     
     // 添加定时器
@@ -84,7 +85,7 @@
     return CGRectGetWidth(_listView.bounds);  // _fullScreenWidth = YES
 }
 - (NSInteger)numberOfColumnsInListView:(SListView *)listView {
-    if (_realCount > 1) return _realCount * 3;
+    if (_realCount > 1) return _realCount * kMultipleNum;
     else return _realCount;
 }
 - (SListViewCell *)listView:(SListView *)listView viewForColumnAtIndex:(NSInteger)index {
@@ -106,9 +107,9 @@
     CGFloat offsetX = scrollView.contentOffset.x;
     NSInteger page = offsetX / scrollView.bounds.size.width;
     if (page == 0) {
-        _listView.specifiedIndex = _realCount;
-    }else if (page == _realCount * 3 - 1){
-        _listView.specifiedIndex = _realCount - 1;
+        _listView.specifiedIndex = _realCount * floor(kMultipleNum/2);
+    }else if (page == _realCount * kMultipleNum - 1){
+        _listView.specifiedIndex = _realCount * floor(kMultipleNum/2) - 1;
     }
     if (_timeInterval > 0) [self addTimer];
 }
@@ -116,15 +117,6 @@
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     //移除定时器
     [self removeTimer];
-    
-    // 快速拖动时，让页面连续
-    CGFloat offsetX = scrollView.contentOffset.x;
-    if (offsetX < CGRectGetWidth(scrollView.frame)/2.0) {
-        _listView.specifiedIndex = _realCount;
-    }
-    else if (offsetX > CGRectGetWidth(scrollView.frame) * (_realCount * 3 - 1 - 1/2)){
-        _listView.specifiedIndex = _realCount - 1;
-    }
 }
 // 切换到下一张
 - (void)nextCell {
