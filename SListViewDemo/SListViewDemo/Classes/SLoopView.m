@@ -103,15 +103,17 @@
 }
 // 手指开始拖动时调用
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    //移除定时器
+    [self removeTimer];
+    
     // 快速拖动时，让页面连续
     CGFloat offsetX = scrollView.contentOffset.x;
     if (offsetX < CGRectGetWidth(scrollView.frame)/2.0) {
         _listView.specifiedIndex = _realCount;
-    }else if (offsetX > CGRectGetWidth(scrollView.frame) * (_realCount * 3 - 1.5)){
+    }
+    else if (offsetX > CGRectGetWidth(scrollView.frame) * (_realCount * 3 - 1 - 1/2)){
         _listView.specifiedIndex = _realCount - 1;
     }
-    //移除定时器
-    [self removeTimer];
 }
 // 切换到下一张
 - (void)nextCell {
