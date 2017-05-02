@@ -39,6 +39,8 @@ static const CGFloat kSpace = 0.0f;
     NSMutableDictionary * _reusableListCells;
     // 所以子视图cell 的 width 恒等于 _scrollView 的 width
     BOOL _fullScreenWidth;
+    // _scrollView.contentOffset 会触发 scrollViewDidScroll: 需要先屏蔽掉
+    BOOL _scrollViewEnabel;
 }
 @end
 
@@ -120,8 +122,10 @@ static const CGFloat kSpace = 0.0f;
             [_columnRects addObject:NSStringFromCGRect(rect)];
             left += width + kSpace;
         }
+        _scrollViewEnabel = NO;
         _scrollView.contentSize = CGSizeMake(left, _height);
         _scrollView.contentOffset = CGPointMake(0 + CGRectGetWidth(_scrollView.frame)*_specifiedIndex*_fullScreenWidth , 0);
+        _scrollViewEnabel = YES;
     }
     
     if (!_visibleListCells) {
@@ -249,6 +253,9 @@ static const CGFloat kSpace = 0.0f;
 }
 // ScrollView Delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    if (!_scrollViewEnabel) return;
+    
     CGRect tempRect = [scrollView visibleRect];
     CGFloat offsetX = tempRect.origin.x - _visibleRect.origin.x;
     _visibleRect = tempRect;

@@ -9,6 +9,7 @@
 #import "SLoopView.h"
 #import "SListView.h"
 #import "SWeakTimerObject.h"
+
 @interface SLoopView ()<SListViewDataSource, SListViewDelegate>
 {
     struct {
@@ -24,13 +25,10 @@
 @end
 
 @implementation SLoopView
-- (id)initWithFrame:(CGRect)frame timeInterval:(NSTimeInterval)ti
+- (id)initWithFrame:(CGRect)frame loopInterval:(NSTimeInterval)ti
 {
     if (self = [self initWithFrame:frame]) {
-        if (ti > 0) {
-            _timeInterval = ti;
-            [self addTimer];
-        }
+        _timeInterval = ti;
     }
     return self;
 }
@@ -42,6 +40,7 @@
         _listView.scrollView.pagingEnabled = YES;
         _listView.delegate = self;
         [self addSubview:_listView];
+        _timeInterval = 0;
     }
     return self;
 }
@@ -55,7 +54,7 @@
 {
     _dataSource = dataSource;
     _listView.dataSource = self;
-    if (_realCount > 1) _listView.specifiedIndex = _realCount;
+    [self reloadData];
 }
 - (id)dequeueReusableCellWithIdentifier:(NSString *)identifier
 {
@@ -63,18 +62,22 @@
 }
 - (void)reloadData
 {
-    [_listView reloadData];
+    [self removeTimer];
+    _realCount = [_dataSource numberOfColumnsInLoopView:self];
     if (_realCount > 1) _listView.specifiedIndex = _realCount;
     else _listView.specifiedIndex = 0;
+    // 添加定时器
+    if (_realCount > 1 && _timeInterval > 0) {
+        [self addTimer];
+    }
 }
 #pragma mark - SListViewDataSource
 - (CGFloat)widthForColumnAtIndex:(NSInteger)index {
     return CGRectGetWidth(_listView.bounds);  // _fullScreenWidth = YES
 }
 - (NSInteger)numberOfColumnsInListView:(SListView *)listView {
-    _realCount = [_dataSource numberOfColumnsInLoopView:self];
-    if (_realCount <= 1) return _realCount;
-    else return _realCount * 3;
+    if (_realCount > 1) return _realCount * 3;
+    else return _realCount;
 }
 - (SListViewCell *)listView:(SListView *)listView viewForColumnAtIndex:(NSInteger)index {
     return [_dataSource loopView:self viewForColumnAtIndex:index % _realCount];

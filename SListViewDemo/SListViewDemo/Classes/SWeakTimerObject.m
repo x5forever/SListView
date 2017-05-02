@@ -14,7 +14,7 @@
 @end
 
 @implementation SWeakTimerObject
-+ (NSTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)ti target:(id)aTarget selector:(SEL)aSelector userInfo:(id)userInfo repeats:(BOOL)yesOrNo {
++ (NSTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)ti target:(id)aTarget selector:(SEL)aSelector userInfo:(nullable id)userInfo repeats:(BOOL)yesOrNo {
     SWeakTimerObject *object = [[SWeakTimerObject alloc] init];
     object.target = aTarget;
     object.selector = aSelector;

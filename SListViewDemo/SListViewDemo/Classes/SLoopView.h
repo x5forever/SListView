@@ -6,6 +6,8 @@
 //  Copyright © 2017年 Xcution. All rights reserved.
 //
 
+//  SLoopView 是在 SListView 的基础上，重新封装了一层
+
 #import "SListViewCell.h"
 
 @class SLoopView;
@@ -26,7 +28,7 @@
 
 @property (nonatomic, weak) id <SLoopViewDelegate>    delegate;
 @property (nonatomic, weak) id <SLoopViewDataSource>  dataSource;
-- (id)initWithFrame:(CGRect)frame timeInterval:(NSTimeInterval)ti; // ti must be > 0 , otherwise it's invalid
+- (id)initWithFrame:(CGRect)frame loopInterval:(NSTimeInterval)ti; // ti must be > 0 , otherwise it's invalid
 - (id)dequeueReusableCellWithIdentifier:(NSString *)identifier;
 - (void)reloadData;
 @end
