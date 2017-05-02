@@ -101,7 +101,11 @@ static const CGFloat kSpace = 0.0f;
         _columns = [_dataSource numberOfColumnsInListView:self];
         if (_columns <= 0) return;
 
-        _columnRects = [NSMutableArray arrayWithCapacity:_columns];
+        if (!_columnRects) {
+            _columnRects = [NSMutableArray arrayWithCapacity:_columns];
+        }else{
+            [_columnRects removeAllObjects];
+        }
         
         CGFloat left = 0;
         for (int index = 0; index < _columns; index ++) {
