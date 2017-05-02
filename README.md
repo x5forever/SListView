@@ -1,5 +1,5 @@
 # SListView
-* custom tableView of horizontal sliding
+* the custom tableView of horizontal sliding and support carousel figure
 
 # Function
 * 水平滑动的自定义tableView
