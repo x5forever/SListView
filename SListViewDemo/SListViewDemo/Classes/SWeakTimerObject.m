@@ -21,6 +21,11 @@
     return [NSTimer scheduledTimerWithTimeInterval:ti target:object selector:@selector(fire:) userInfo:userInfo repeats:yesOrNo];
 }
 - (void)fire:(id)obj {
-    [_target performSelector:_selector withObject:obj];
+//    [_target performSelector:_selector withObject:obj]; /* ⚠️: "PerformSelector may cause a leak because its selector is unknown" */
+    if (_target) {
+        IMP imp = [_target methodForSelector:_selector];
+        void (*func)(id, SEL, id) = (void *)imp;
+        func(_target,_selector,obj);
+    }
 }
 @end
