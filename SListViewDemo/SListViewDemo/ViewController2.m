@@ -22,12 +22,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.dataSource = @[randomColor];
+    self.dataSource = @[randomColor,randomColor,randomColor];
     [self.view addSubview:self.loopView];
     _showLabel.text = @"0";
 }
 - (IBAction)reload:(id)sender {
-    self.dataSource = @[randomColor,randomColor,randomColor];
+    self.dataSource = @[randomColor,randomColor];
     [self.loopView reloadData];
 }
 #pragma mark - SLoopViewDataSource
@@ -54,13 +54,13 @@
 }
 - (void)loopView:(SLoopView *)loopView didSelectColumnAtIndex:(NSInteger)index
 {
-    NSLog(@"didSelectColumnAtIndex >> %ld",index);
+    NSLog(@"loopView didSelectColumnAtIndex >> %ld",index);
 }
 #pragma mark - lazy init
 - (SLoopView *)loopView
 {
     if (!_loopView) {
-        _loopView = [[SLoopView alloc] initWithFrame:CGRectMake(0, 200, CGRectGetWidth(self.view.frame), 200) loopInterval:4];
+        _loopView = [[SLoopView alloc] initWithFrame:CGRectMake(0, 150, CGRectGetWidth(self.view.frame), 200) loopInterval:4];
         _loopView.dataSource = self;
         _loopView.delegate = self;
     }

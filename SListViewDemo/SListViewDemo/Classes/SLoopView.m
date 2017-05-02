@@ -38,6 +38,7 @@
         _listView = [[SListView alloc] initWithFrame:self.bounds];
         _listView.scrollView.showsHorizontalScrollIndicator = NO;
         _listView.scrollView.pagingEnabled = YES;
+        _listView.scrollView.bounces = NO;
         _listView.delegate = self;
         [self addSubview:_listView];
         _timeInterval = 0;

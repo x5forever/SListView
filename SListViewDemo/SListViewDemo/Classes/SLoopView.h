@@ -28,7 +28,7 @@
 
 @property (nonatomic, weak) id <SLoopViewDelegate>    delegate;
 @property (nonatomic, weak) id <SLoopViewDataSource>  dataSource;
-- (id)initWithFrame:(CGRect)frame loopInterval:(NSTimeInterval)ti; // ti must be > 0 , otherwise it's invalid
+- (id)initWithFrame:(CGRect)frame loopInterval:(NSTimeInterval)ti; // ti must be > 0 , otherwise it's invalid. (* note: ti is greater than 0.5 or else it may be crash.*)
 - (id)dequeueReusableCellWithIdentifier:(NSString *)identifier;
 - (void)reloadData;
 @end

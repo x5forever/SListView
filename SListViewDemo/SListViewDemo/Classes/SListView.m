@@ -254,13 +254,6 @@ static const CGFloat kSpace = 0.0f;
 // ScrollView Delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
-    if (!_scrollViewEnabel) return;
-    
-    CGRect tempRect = [scrollView visibleRect];
-    CGFloat offsetX = tempRect.origin.x - _visibleRect.origin.x;
-    _visibleRect = tempRect;
-    [self reLayoutSubViewsWithOffset:offsetX];
-    
     if (_delegateFlags.didScroll) {
         if (_fullScreenWidth) { // 当所以cell宽度恒等于_scrollView宽度时，显示出_scrollView 1/2 以上宽度即为已显示
             float decimal = scrollView.contentOffset.x / CGRectGetWidth(_scrollView.frame);
@@ -272,6 +265,15 @@ static const CGFloat kSpace = 0.0f;
             [_delegate listView:self didScrollToColumn:_visibleRange];
         }
     }
+    
+    if (!_scrollViewEnabel) return;
+    
+    CGRect tempRect = [scrollView visibleRect];
+    CGFloat offsetX = tempRect.origin.x - _visibleRect.origin.x;
+    _visibleRect = tempRect;
+    [self reLayoutSubViewsWithOffset:offsetX];
+    
+    
 }
 - (BOOL)respondsToSelector:(SEL)aSelector {
     BOOL hasResponds = [super respondsToSelector:aSelector];
