@@ -62,10 +62,17 @@
 }
 - (void)reloadData
 {
+    // 移除定时器
     [self removeTimer];
+    
+    /*  
+      调用 _dataSource 的协议方法 numberOfColumnsInLoopView: ，获取 _realCount.
+      并再间接调用 _listView 的 reloadData 方法
+    */
     _realCount = [_dataSource numberOfColumnsInLoopView:self];
     if (_realCount > 1) _listView.specifiedIndex = _realCount;
     else _listView.specifiedIndex = 0;
+    
     // 添加定时器
     if (_realCount > 1 && _timeInterval > 0) {
         [self addTimer];
