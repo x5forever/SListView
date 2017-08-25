@@ -82,7 +82,7 @@ static const CGFloat kSpace = 0.0f;
 {
     _dataSource = dataSource;
     _dataSourceFlags.numberOfColumns = [dataSource respondsToSelector:@selector(numberOfColumnsInListView:)];
-    _dataSourceFlags.widthForColumn = [dataSource respondsToSelector:@selector(widthForColumnAtIndex:)];
+    _dataSourceFlags.widthForColumn = [dataSource respondsToSelector:@selector(listView:widthForColumnAtIndex:)];
     
     [self loadData];
 }
@@ -114,7 +114,7 @@ static const CGFloat kSpace = 0.0f;
         for (int index = 0; index < _columns; index ++) {
             CGFloat width = _height;
             if (_dataSourceFlags.widthForColumn) {
-                width = [_dataSource widthForColumnAtIndex:index];
+                width = [_dataSource listView:self widthForColumnAtIndex:index];
             }
             if (_fullScreenWidth) { // 以下判断 cell 是否为全屏显示
                 _fullScreenWidth = CGRectGetWidth(_scrollView.frame) == width;

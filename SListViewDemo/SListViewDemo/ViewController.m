@@ -30,7 +30,7 @@
 }
 
 #pragma mark - SListViewDataSource
-- (CGFloat)widthForColumnAtIndex:(NSInteger)index {
+- (CGFloat)listView:(SListView *)listView widthForColumnAtIndex:(NSInteger)index {
 //    return CGRectGetWidth(self.view.frame);  // _fullScreenWidth = YES 
     return index % 2? 70:90;                 // _fullScreenWidth = NO
 }

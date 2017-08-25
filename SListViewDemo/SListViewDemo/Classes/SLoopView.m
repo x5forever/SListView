@@ -81,7 +81,7 @@ static const NSInteger kMultipleNum = 10; //(翻倍基数，必须 >= 2 )
     }
 }
 #pragma mark - SListViewDataSource
-- (CGFloat)widthForColumnAtIndex:(NSInteger)index {
+- (CGFloat)listView:(SListView *)listView widthForColumnAtIndex:(NSInteger)index {
     return CGRectGetWidth(_listView.bounds);  // _fullScreenWidth = YES
 }
 - (NSInteger)numberOfColumnsInListView:(SListView *)listView {

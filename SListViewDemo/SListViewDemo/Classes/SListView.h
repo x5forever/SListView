@@ -45,7 +45,7 @@ typedef enum _SDirection {
 @protocol SListViewDataSource <NSObject>
 @optional
 - (NSInteger)numberOfColumnsInListView:(SListView *)listView;
-- (CGFloat)widthForColumnAtIndex:(NSInteger) index;
+- (CGFloat)listView:(SListView *)listView widthForColumnAtIndex:(NSInteger) index;
 - (SListViewCell *)listView:(SListView *)listView viewForColumnAtIndex:(NSInteger)index;
 @end
 
