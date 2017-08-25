@@ -100,6 +100,7 @@ static const CGFloat kSpace = 0.0f;
 {
     _fullScreenWidth = YES;
     if (_dataSourceFlags.numberOfColumns) {
+        _visibleRect = CGRectZero;
         _columns = [_dataSource numberOfColumnsInListView:self];
         if (_columns <= 0) return;
 
