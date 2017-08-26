@@ -12,6 +12,7 @@
     2. 添加 listViewCellSpace 属性, 替换 kSpace. 目的：将 kSpace 提供为 api 使用
     3. 让 delegate 可调用 scrollViewDidScroll: 方法
     4. 删掉 if (_columns <= 0) return; 让 _columns 可为0
+    5. 完善 SWeakTimerObject
  */
 
 #import "SListView.h"
