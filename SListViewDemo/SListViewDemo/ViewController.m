@@ -30,12 +30,12 @@
 }
 
 #pragma mark - SListViewDataSource
+- (NSInteger)numberOfColumnsInListView:(SListView *)listView {
+    return self.dataSource.count;
+}
 - (CGFloat)listView:(SListView *)listView widthForColumnAtIndex:(NSInteger)index {
 //    return CGRectGetWidth(self.view.frame);  // _fullScreenWidth = YES 
     return index % 2? 70:90;                 // _fullScreenWidth = NO
-}
-- (NSInteger)numberOfColumnsInListView:(SListView *)listView {
-    return self.dataSource.count;
 }
 - (SListViewCell *)listView:(SListView *)listView viewForColumnAtIndex:(NSInteger)index {
     static NSString *identifier = @"ListViewCellIdentifier";

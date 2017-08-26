@@ -1,17 +1,21 @@
 //
 //  SListView.m
-//  宜人贷借款
+//  SListViewDemo
 //
 //  Created by x5 on 14-6-27.
 //  Copyright (c) 2014年  Creditease. All rights reserved.
 //
 //  仿iPhone天气效果，添加间隔kSpace by x5 , 2014-12-23.
-//  添加缓存 by x5 , 2015-1-20.
-//
+//  添加Flags缓存 by x5 , 2015-1-20.
+/*  by x5 , 2017-8-26
+    1. _visibleRect = CGRectZero, 解决 SLoopView 出现瞬间空白页bug
+    2. 添加 listViewCellSpace 变量, 替换 kSpace. 目的：将 kSpace 提供为 api 使用
+    3. 让 delegate 可调用 scrollViewDidScroll: 方法
+ */
 
 #import "SListView.h"
 
-static const CGFloat kSpace = 0.0f;
+//static const CGFloat kSpace = 0.0f;
 
 @implementation UIScrollView (Rect)
 - (CGRect) visibleRect {
@@ -49,6 +53,7 @@ static const CGFloat kSpace = 0.0f;
     struct {
         unsigned int didScroll           : 1;
         unsigned int didSelect           : 1;
+        unsigned int scrollViewDidScroll : 1;
     }_delegateFlags;
     
     struct {
@@ -65,8 +70,10 @@ static const CGFloat kSpace = 0.0f;
 - (id)initWithFrame:(CGRect) frame {
     self = [super initWithFrame:frame];
     if (self) {
+        _specifiedIndex = 0;
+        _listViewCellSpace = 0.f;
         _height = CGRectGetHeight(frame);
-        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(frame)+kSpace, _height)];
+        _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
         _scrollView.delegate = self;
         [self addSubview:_scrollView];
     }
@@ -77,6 +84,7 @@ static const CGFloat kSpace = 0.0f;
     _delegate = delegate;
     _delegateFlags.didScroll = [delegate respondsToSelector:@selector(listView:didScrollToColumn:)];
     _delegateFlags.didSelect = [delegate respondsToSelector:@selector(listView:didSelectColumnAtIndex:)];
+    _delegateFlags.scrollViewDidScroll = [delegate respondsToSelector:@selector(scrollViewDidScroll:)];
 }
 - (void) setDataSource:(id<SListViewDataSource>)dataSource
 {
@@ -93,13 +101,21 @@ static const CGFloat kSpace = 0.0f;
         [self loadData];
     }
 }
+- (void)setListViewCellSpace:(CGFloat)listViewCellSpace
+{
+    _listViewCellSpace = listViewCellSpace;
+    if (_listViewCellSpace > 0) {
+        _scrollView.frame = CGRectMake(0, 0, CGRectGetWidth(_scrollView.frame)+_listViewCellSpace, _height);
+        [self loadData];
+    }
+}
 - (void) reloadData {
     [self loadData];
 }
 - (void) loadData
 {
-    _fullScreenWidth = YES;
     if (_dataSourceFlags.numberOfColumns) {
+        _fullScreenWidth = YES;
         _visibleRect = CGRectZero;
         _columns = [_dataSource numberOfColumnsInListView:self];
         if (_columns <= 0) return;
@@ -116,12 +132,12 @@ static const CGFloat kSpace = 0.0f;
             if (_dataSourceFlags.widthForColumn) {
                 width = [_dataSource listView:self widthForColumnAtIndex:index];
             }
-            if (_fullScreenWidth) { // 以下判断 cell 是否为全屏显示
+            if (_fullScreenWidth) { //判断所有 cell 是否为全屏显示
                 _fullScreenWidth = CGRectGetWidth(_scrollView.frame) == width;
             }
             CGRect rect = CGRectMake(left, 0, width, _height);
             [_columnRects addObject:NSStringFromCGRect(rect)];
-            left += width + kSpace;
+            left += width + _listViewCellSpace;
         }
         _scrollViewEnabel = NO;
         _scrollView.contentSize = CGSizeMake(left, _height);
@@ -266,7 +282,9 @@ static const CGFloat kSpace = 0.0f;
             [_delegate listView:self didScrollToColumn:_visibleRange];
         }
     }
-    
+    if (_delegateFlags.scrollViewDidScroll) {
+        [_delegate scrollViewDidScroll:scrollView];
+    }
     if (!_scrollViewEnabel) return;
     
     CGRect tempRect = [scrollView visibleRect];
