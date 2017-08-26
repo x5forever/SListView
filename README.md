@@ -65,7 +65,8 @@ pod 'SListView','~>1.0.0'
  1._visibleRect = CGRectZero, 解决 SLoopView 出现瞬间空白页bug <br>
  2.添加 listViewCellSpace 属性, 替换 kSpace. 目的：将 kSpace 提供为 api 使用 <br>
  3.让 delegate 可调用 scrollViewDidScroll: 方法 <br>
- 4.删掉 if (_columns <= 0) return; 让 _columns 可为0
+ 4.删掉 if (_columns <= 0) return; 让 _columns 可为0<br>
+ 5.完善 SWeakTimerObject
 * V0.3.0 <br> 
   1.新增 SLoopView : 支持无限轮播<br>
   2.优化 SListView
