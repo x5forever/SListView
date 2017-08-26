@@ -51,7 +51,7 @@
 }
 #pragma mark - SListViewDelegate
 - (void)listView:(SListView *)listView didSelectColumnAtIndex:(NSInteger)index {
-    NSLog(@"listView didSelectColumnAtIndex >> %ld",index);
+    NSLog(@"listView didSelectColumnAtIndex >> %ld",(long)index);
 }
 - (void)listView:(SListView *)listView didScrollToColumn:(SRange)range {
 //    NSLog(@"didScrollToColumn start:%ld  end:%ld",range.start,range.end);

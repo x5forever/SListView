@@ -10,12 +10,8 @@
 
 #import <Foundation/Foundation.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface SWeakTimerObject : NSObject
 
-+ (NSTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)ti target:(id)aTarget selector:(SEL)aSelector userInfo:(nullable id)userInfo repeats:(BOOL)yesOrNo;
++ (nonnull NSTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)ti target:(nonnull id)aTarget selector:(nonnull SEL)aSelector userInfo:(nullable id)userInfo repeats:(BOOL)yesOrNo;
 
 @end
-
-NS_ASSUME_NONNULL_END

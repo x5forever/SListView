@@ -49,11 +49,11 @@
 #pragma mark - SLoopViewDelegate
 - (void)loopView:(SLoopView *)loopView didScrollToColumn:(NSInteger)index
 {
-    _showLabel.text = [NSString stringWithFormat:@"%ld",index];
+    _showLabel.text = [NSString stringWithFormat:@"%ld",(long)index];
 }
 - (void)loopView:(SLoopView *)loopView didSelectColumnAtIndex:(NSInteger)index
 {
-    NSLog(@"loopView didSelectColumnAtIndex >> %ld",index);
+    NSLog(@"loopView didSelectColumnAtIndex >> %ld",(long)index);
 }
 #pragma mark - lazy init
 - (SLoopView *)loopView
