@@ -53,7 +53,7 @@ typedef enum _SDirection {
 
 @property (nonatomic, weak) id <SListViewDelegate>    delegate;
 @property (nonatomic, weak) id <SListViewDataSource>  dataSource;
-@property (nonatomic, assign) NSInteger               specifiedIndex;  //default is 0, 指定当前的index. 注意：当且仅当 _fullScreenWidth == YES 时有效
+@property (nonatomic, assign) NSInteger               specifiedIndex; //default is 0, 指定当前的index. 注意：当且仅当 _isFullScreenWidth == YES 时有效
 @property (nonatomic, assign) CGFloat                 listViewCellSpace; //default is 0
 @property (nonatomic, strong, readonly) UIScrollView *scrollView;
 

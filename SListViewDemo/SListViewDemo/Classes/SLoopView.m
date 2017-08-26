@@ -86,7 +86,7 @@ static const NSInteger kMultipleNum = 10; //(翻倍基数，必须 >= 2 )
     else return _realCount;
 }
 - (CGFloat)listView:(SListView *)listView widthForColumnAtIndex:(NSInteger)index {
-    return CGRectGetWidth(_listView.bounds);  // _fullScreenWidth = YES
+    return CGRectGetWidth(_listView.bounds);  // _isFullScreenWidth = YES
 }
 - (SListViewCell *)listView:(SListView *)listView viewForColumnAtIndex:(NSInteger)index {
     return [_dataSource loopView:self viewForColumnAtIndex:index % _realCount];
