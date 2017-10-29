@@ -4,7 +4,7 @@
 //
 //  Created by x5 on 17/4/30.
 //  Copyright © 2017年 Xcution. All rights reserved.
-//
+//  
 //  SLoopView 是在 SListView 的基础上，重新封装了一层，实现了无限轮播
 
 #import "SListViewCell.h"

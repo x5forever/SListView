@@ -105,11 +105,17 @@ static const NSInteger kMultipleNum = 10; //(翻倍基数，必须 >= 2 )
 // 当滚动减速时调用
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     CGFloat offsetX = scrollView.contentOffset.x;
-    NSInteger page = offsetX / scrollView.bounds.size.width;
+    CGFloat page = offsetX / CGRectGetWidth(_listView.frame);
     if (page == 0) {
         _listView.specifiedIndex = _realCount * floor(kMultipleNum/2);
-    }else if (page == _realCount * kMultipleNum - 1){
+    }else if (page == _realCount * kMultipleNum - 1) {
         _listView.specifiedIndex = _realCount * floor(kMultipleNum/2) - 1;
+    }else {
+        // correctedOffsetX_facient 用来修正切换tab时，系统为了节省资源禁用了scrollView动画和其他事件的接收，animation 为 NO 后，导致 scrollView 偏移量不是CGRectGetWidth(_listView.frame)的整数倍，页面出现偏移的问题。 Note：勿用 ceil 和 floor, 一定用 round.
+        CGFloat correctedOffsetX_facient = round(offsetX / CGRectGetWidth(_listView.frame));
+        if (correctedOffsetX_facient != page) {
+            [_listView.scrollView setContentOffset:CGPointMake(correctedOffsetX_facient * CGRectGetWidth(_listView.frame), 0) animated:NO];
+        }
     }
     if (_timeInterval > 0) [self addTimer];
 }

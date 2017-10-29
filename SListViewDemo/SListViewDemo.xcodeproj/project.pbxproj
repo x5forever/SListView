@@ -16,28 +16,9 @@
 		54CC23281E27628D00D685C2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54CC23261E27628D00D685C2 /* Main.storyboard */; };
 		54CC232A1E27628D00D685C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54CC23291E27628D00D685C2 /* Assets.xcassets */; };
 		54CC232D1E27628D00D685C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54CC232B1E27628D00D685C2 /* LaunchScreen.storyboard */; };
-		54CC23381E27628D00D685C2 /* SListViewDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CC23371E27628D00D685C2 /* SListViewDemoTests.m */; };
-		54CC23431E27628D00D685C2 /* SListViewDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CC23421E27628D00D685C2 /* SListViewDemoUITests.m */; };
 		54CC23551E27655500D685C2 /* SListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CC23521E27655500D685C2 /* SListView.m */; };
 		54CC23561E27655500D685C2 /* SListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CC23541E27655500D685C2 /* SListViewCell.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		54CC23341E27628D00D685C2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 54CC23121E27628D00D685C2 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 54CC23191E27628D00D685C2;
-			remoteInfo = SListViewDemo;
-		};
-		54CC233F1E27628D00D685C2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 54CC23121E27628D00D685C2 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 54CC23191E27628D00D685C2;
-			remoteInfo = SListViewDemo;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		541CA3311EB6CA6B00E7D3C1 /* SWeakTimerObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWeakTimerObject.h; sourceTree = "<group>"; };
@@ -56,12 +37,6 @@
 		54CC23291E27628D00D685C2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		54CC232C1E27628D00D685C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		54CC232E1E27628D00D685C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		54CC23331E27628D00D685C2 /* SListViewDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SListViewDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		54CC23371E27628D00D685C2 /* SListViewDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SListViewDemoTests.m; sourceTree = "<group>"; };
-		54CC23391E27628D00D685C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		54CC233E1E27628D00D685C2 /* SListViewDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SListViewDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		54CC23421E27628D00D685C2 /* SListViewDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SListViewDemoUITests.m; sourceTree = "<group>"; };
-		54CC23441E27628D00D685C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		54CC23511E27655500D685C2 /* SListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SListView.h; sourceTree = "<group>"; };
 		54CC23521E27655500D685C2 /* SListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SListView.m; sourceTree = "<group>"; };
 		54CC23531E27655500D685C2 /* SListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SListViewCell.h; sourceTree = "<group>"; };
@@ -76,20 +51,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		54CC23301E27628D00D685C2 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		54CC233B1E27628D00D685C2 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -97,8 +58,6 @@
 			isa = PBXGroup;
 			children = (
 				54CC231C1E27628D00D685C2 /* SListViewDemo */,
-				54CC23361E27628D00D685C2 /* SListViewDemoTests */,
-				54CC23411E27628D00D685C2 /* SListViewDemoUITests */,
 				54CC231B1E27628D00D685C2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -107,8 +66,6 @@
 			isa = PBXGroup;
 			children = (
 				54CC231A1E27628D00D685C2 /* SListViewDemo.app */,
-				54CC23331E27628D00D685C2 /* SListViewDemoTests.xctest */,
-				54CC233E1E27628D00D685C2 /* SListViewDemoUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -138,24 +95,6 @@
 				54CC231E1E27628D00D685C2 /* main.m */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		54CC23361E27628D00D685C2 /* SListViewDemoTests */ = {
-			isa = PBXGroup;
-			children = (
-				54CC23371E27628D00D685C2 /* SListViewDemoTests.m */,
-				54CC23391E27628D00D685C2 /* Info.plist */,
-			);
-			path = SListViewDemoTests;
-			sourceTree = "<group>";
-		};
-		54CC23411E27628D00D685C2 /* SListViewDemoUITests */ = {
-			isa = PBXGroup;
-			children = (
-				54CC23421E27628D00D685C2 /* SListViewDemoUITests.m */,
-				54CC23441E27628D00D685C2 /* Info.plist */,
-			);
-			path = SListViewDemoUITests;
 			sourceTree = "<group>";
 		};
 		54CC23501E27655500D685C2 /* Classes */ = {
@@ -193,42 +132,6 @@
 			productReference = 54CC231A1E27628D00D685C2 /* SListViewDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		54CC23321E27628D00D685C2 /* SListViewDemoTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 54CC234A1E27628D00D685C2 /* Build configuration list for PBXNativeTarget "SListViewDemoTests" */;
-			buildPhases = (
-				54CC232F1E27628D00D685C2 /* Sources */,
-				54CC23301E27628D00D685C2 /* Frameworks */,
-				54CC23311E27628D00D685C2 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				54CC23351E27628D00D685C2 /* PBXTargetDependency */,
-			);
-			name = SListViewDemoTests;
-			productName = SListViewDemoTests;
-			productReference = 54CC23331E27628D00D685C2 /* SListViewDemoTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		54CC233D1E27628D00D685C2 /* SListViewDemoUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 54CC234D1E27628D00D685C2 /* Build configuration list for PBXNativeTarget "SListViewDemoUITests" */;
-			buildPhases = (
-				54CC233A1E27628D00D685C2 /* Sources */,
-				54CC233B1E27628D00D685C2 /* Frameworks */,
-				54CC233C1E27628D00D685C2 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				54CC23401E27628D00D685C2 /* PBXTargetDependency */,
-			);
-			name = SListViewDemoUITests;
-			productName = SListViewDemoUITests;
-			productReference = 54CC233E1E27628D00D685C2 /* SListViewDemoUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -242,18 +145,6 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 3AHZ82SGX3;
 						ProvisioningStyle = Automatic;
-					};
-					54CC23321E27628D00D685C2 = {
-						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 3AHZ82SGX3;
-						ProvisioningStyle = Automatic;
-						TestTargetID = 54CC23191E27628D00D685C2;
-					};
-					54CC233D1E27628D00D685C2 = {
-						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 3AHZ82SGX3;
-						ProvisioningStyle = Automatic;
-						TestTargetID = 54CC23191E27628D00D685C2;
 					};
 				};
 			};
@@ -271,8 +162,6 @@
 			projectRoot = "";
 			targets = (
 				54CC23191E27628D00D685C2 /* SListViewDemo */,
-				54CC23321E27628D00D685C2 /* SListViewDemoTests */,
-				54CC233D1E27628D00D685C2 /* SListViewDemoUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -285,20 +174,6 @@
 				54CC232D1E27628D00D685C2 /* LaunchScreen.storyboard in Resources */,
 				54CC232A1E27628D00D685C2 /* Assets.xcassets in Resources */,
 				54CC23281E27628D00D685C2 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		54CC23311E27628D00D685C2 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		54CC233C1E27628D00D685C2 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,36 +195,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		54CC232F1E27628D00D685C2 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				54CC23381E27628D00D685C2 /* SListViewDemoTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		54CC233A1E27628D00D685C2 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				54CC23431E27628D00D685C2 /* SListViewDemoUITests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		54CC23351E27628D00D685C2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 54CC23191E27628D00D685C2 /* SListViewDemo */;
-			targetProxy = 54CC23341E27628D00D685C2 /* PBXContainerItemProxy */;
-		};
-		54CC23401E27628D00D685C2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 54CC23191E27628D00D685C2 /* SListViewDemo */;
-			targetProxy = 54CC233F1E27628D00D685C2 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		54CC23261E27628D00D685C2 /* Main.storyboard */ = {
@@ -487,56 +333,6 @@
 			};
 			name = Release;
 		};
-		54CC234B1E27628D00D685C2 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = 3AHZ82SGX3;
-				INFOPLIST_FILE = SListViewDemoTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.yixin.SListViewDemoTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SListViewDemo.app/SListViewDemo";
-			};
-			name = Debug;
-		};
-		54CC234C1E27628D00D685C2 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = 3AHZ82SGX3;
-				INFOPLIST_FILE = SListViewDemoTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.yixin.SListViewDemoTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SListViewDemo.app/SListViewDemo";
-			};
-			name = Release;
-		};
-		54CC234E1E27628D00D685C2 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DEVELOPMENT_TEAM = 3AHZ82SGX3;
-				INFOPLIST_FILE = SListViewDemoUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.yixin.SListViewDemoUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = SListViewDemo;
-			};
-			name = Debug;
-		};
-		54CC234F1E27628D00D685C2 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DEVELOPMENT_TEAM = 3AHZ82SGX3;
-				INFOPLIST_FILE = SListViewDemoUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.yixin.SListViewDemoUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = SListViewDemo;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -554,24 +350,6 @@
 			buildConfigurations = (
 				54CC23481E27628D00D685C2 /* Debug */,
 				54CC23491E27628D00D685C2 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		54CC234A1E27628D00D685C2 /* Build configuration list for PBXNativeTarget "SListViewDemoTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				54CC234B1E27628D00D685C2 /* Debug */,
-				54CC234C1E27628D00D685C2 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		54CC234D1E27628D00D685C2 /* Build configuration list for PBXNativeTarget "SListViewDemoUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				54CC234E1E27628D00D685C2 /* Debug */,
-				54CC234F1E27628D00D685C2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

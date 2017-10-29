@@ -61,6 +61,8 @@ pod 'SListView','~>1.0.0'
 ```
 
 ## Update
+* V1.0.1 <br>
+ 1.修复切换tab时，页面偏移bug
 * V1.0.0 <br>
  1._visibleRect = CGRectZero, 解决 SLoopView 出现瞬间空白页bug <br>
  2.添加 listViewCellSpace 属性, 替换 kSpace. 目的：将 kSpace 提供为 api 使用 <br>

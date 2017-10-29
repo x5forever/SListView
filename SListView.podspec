@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SListView'
-  s.version          = '1.0.0'
+  s.version          = '1.0.1'
   s.summary          = 'the custom tableView of horizontal sliding and support carousel figure'
   s.description      = <<-DESC
                         可以水平滑动的自定义tableView,且已支持无限轮播,后续会继续完善“垂直滑动”以及“卡片样式”. 实例应用场景如：横向滑动的卡片、banner 以及避免 Timer 循环引用的 SWeakTimerObject 类 
